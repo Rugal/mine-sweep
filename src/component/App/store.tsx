@@ -1,21 +1,16 @@
 import { proxy, subscribe, } from "valtio";
-import type { } from "@redux-devtools/extension";
 import { devtools } from "valtio/utils";
-import * as locales from '@mui/material/locale';
-
-type SupportedLocales = keyof typeof locales;
 
 export interface Store {
   token: string | undefined;
   loading: boolean;
-  locale: SupportedLocales;
 }
 
 const LOCAL_STORAGE_KEY = "kirin";
 
 export const store = proxy<Store>(
   localStorage.getItem(LOCAL_STORAGE_KEY) == null
-    ? { token: undefined, loading: false, locale: "enUS", }
+    ? { token: undefined, loading: false, }
     : JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)!)
 );
 

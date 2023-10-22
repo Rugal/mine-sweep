@@ -1,7 +1,15 @@
+import Button from "./butten";
+
+
 export default function Game() {
-  return <>
-    <button className="border-solid border-2 border-sky-500 w-8 h-8">
-      X
-    </button>
-  </>
+  const row = 10;
+  const column = 20;
+  return Array(row).fill(0).map((_, rowIndex) =>
+    <div className="flex" key={`${rowIndex}`}>
+      {
+        Array(column).fill(0).map((_, columnIndex) =>
+          <Button key={`${rowIndex}-${columnIndex}`} ></Button>)
+      }
+    </div>
+  )
 }
