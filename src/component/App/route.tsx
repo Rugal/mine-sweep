@@ -1,6 +1,6 @@
 import { createBrowserRouter, } from "react-router-dom";
 import HomePage from "@page/HomePage";
-import Game from "@component/Game";
+import GamePage from "@page/GamePage";
 
 export const router = createBrowserRouter([
   {
@@ -9,7 +9,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Game />
+        element: <GamePage />
       },
     ],
   },

@@ -3,6 +3,7 @@ import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import { useState } from "react";
 
 type Props = {
+  isMine: boolean;
 };
 
 export default function Button(p: Props) {
