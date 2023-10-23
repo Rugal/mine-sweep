@@ -1,4 +1,4 @@
-import Button from "./butten";
+import Button from "@component/Button";
 
 interface Props {
   row: number;
@@ -19,10 +19,9 @@ const createMineArray: (capacity: number, mine: number) => Array<boolean> = (cap
     .map((_, index) => set.has(index));
 };
 
-export default function Game(p: Props) {
+export default function Board(p: Props) {
   const mine = createMineArray(p.column * p.row, p.mine);
-
-  return Array(p.row).fill(0).map((_, rowIndex) =>
+  const content = Array(p.row).fill(0).map((_, rowIndex) =>
     <div className="flex" key={`${rowIndex}`}>
       {
         Array(p.column).fill(0).map((_, columnIndex) =>
@@ -34,4 +33,6 @@ export default function Game(p: Props) {
       }
     </div>
   )
+
+  return <div>{content}</div>
 }

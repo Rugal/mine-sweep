@@ -1,3 +1,3 @@
-import Game from "./component";
+import Board from "./component";
 
-export default Game;
+export default Board;

@@ -1,7 +1,6 @@
 import SportsScoreIcon from "@mui/icons-material/SportsScore";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import ErrorIcon from '@mui/icons-material/Error';
-import WarningIcon from '@mui/icons-material/Warning';
 import { useState } from "react";
 
 type Props = {
