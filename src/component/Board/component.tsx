@@ -4,6 +4,7 @@ interface Props {
   row: number;
   column: number;
   mine: number;
+  backdropHandler: (state: boolean) => void;
 }
 
 const getRandomInt: (bound: number) => number = (bound: number) => Math.floor(Math.random() * bound);
@@ -26,6 +27,7 @@ export default function Board(p: Props) {
       {
         Array(p.column).fill(0).map((_, columnIndex) =>
           <Button
+            backdropHandler={p.backdropHandler}
             isMine={mine[rowIndex * p.column + columnIndex]}
             key={`${rowIndex}-${columnIndex}`}
           />

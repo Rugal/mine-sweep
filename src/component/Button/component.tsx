@@ -4,6 +4,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 import { useState } from "react";
 
 type Props = {
+  backdropHandler: (state: boolean) => void;
   isMine: boolean;
 };
 
@@ -13,6 +14,10 @@ export default function Button(p: Props) {
 
   const leftClickHandler = (e) => {
     console.log("Left click");
+    if (p.isMine) {
+      console.log("Game over!");
+      p.backdropHandler(true);
+    }
   };
   const rightClickHandler = (e) => {
     e.preventDefault();
