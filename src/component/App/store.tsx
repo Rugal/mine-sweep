@@ -1,13 +1,25 @@
 import { proxy, subscribe, } from "valtio";
 import { devtools } from "valtio/utils";
 
+interface Board {
+  row: number;
+  column: number;
+  mine: number;
+}
+
 export interface Store {
+  board: Board;
   gameId: number;
   gameOver: boolean;
   mineSetup: Array<boolean>;
 }
 
 const defaultStore: Store = {
+  board: {
+    column: 32,
+    mine: 100,
+    row: 16,
+  },
   gameId: 0,
   gameOver: false,
   mineSetup: Array(1).fill(false),
