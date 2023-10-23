@@ -1,5 +1,6 @@
 import SportsScoreIcon from "@mui/icons-material/SportsScore";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import ErrorIcon from '@mui/icons-material/Error';
 import { useEffect, useMemo, useState } from "react";
 import { store } from "@store";
@@ -13,6 +14,7 @@ type Props = {
 export default function Button(p: Props) {
   const [flag, setFlag] = useState<number>(0);
   const [reveal, setReveal] = useState<boolean>(false);
+  // const [justBomb, setJustBomb] = useState<boolean>(false);
   const sp = useSnapshot(store);
 
   useEffect(() => {
@@ -21,13 +23,15 @@ export default function Button(p: Props) {
 
   const leftClickHandler = (e) => {
     console.log("Left click");
-    if (p.isMine) {
-      console.log("Game over!");
-      store.gameOver = true;
-      p.backdropHandler(true);
+    setReveal(true);
+    if (!p.isMine) {
       return;
     }
-    setReveal(true);
+
+    console.log("Game over!");
+    // setJustBomb(true);
+    store.gameOver = true;
+    p.backdropHandler(true);
   };
   const rightClickHandler = (e) => {
     e.preventDefault();
@@ -41,8 +45,9 @@ export default function Button(p: Props) {
     onClick={leftClickHandler}
     onContextMenu={rightClickHandler}
     className={`border-solid border border-sky-100 w-6 h-6 flex justify-center items-center ${revealedColor}`} >
-    {sp.gameOver && p.isMine && <ErrorIcon />}
-    {flag === 1 && <SportsScoreIcon />}
-    {flag === 2 && <QuestionMarkIcon />}
+    {reveal && p.isMine && <LocalFireDepartmentIcon />}
+    {!reveal && sp.gameOver && p.isMine && <ErrorIcon />}
+    {!reveal && flag === 1 && <SportsScoreIcon />}
+    {!reveal && flag === 2 && <QuestionMarkIcon />}
   </button>;
 }
