@@ -28,7 +28,8 @@ export default function GamePage(p: Props) {
   const [open, setOpen] = useState(false);
   const sp = useSnapshot(store);
 
-  const mineSetup = useMemo(() => createMineArray(p.column * p.row, p.mine), [sp.gameId]);
+  store.mineSetup = useMemo(() => createMineArray(p.column * p.row, p.mine), [sp.gameId]);
+
   const backdropClickHandler = useCallback(() => {
     setOpen(false)
     store.gameOver = false;
@@ -36,7 +37,6 @@ export default function GamePage(p: Props) {
   }, []);
 
   // TODO: show summary
-  // TODO: start new game by closing backdrop
   return <div className="container mx-auto flex justify-center">
     <Backdrop
       sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -44,6 +44,6 @@ export default function GamePage(p: Props) {
       onClick={backdropClickHandler}
     />
 
-    <Board row={p.row} column={p.column} mine={p.mine} mineSetup={mineSetup} backdropHandler={setOpen} />
+    <Board row={p.row} column={p.column} mine={p.mine} backdropHandler={setOpen} />
   </div>
 }

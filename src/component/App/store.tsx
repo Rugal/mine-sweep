@@ -4,11 +4,13 @@ import { devtools } from "valtio/utils";
 export interface Store {
   gameId: number;
   gameOver: boolean;
+  mineSetup: Array<boolean>;
 }
 
 const defaultStore: Store = {
   gameId: 0,
   gameOver: false,
+  mineSetup: Array(1).fill(false),
 };
 
 const LOCAL_STORAGE_KEY = "MineSweep";

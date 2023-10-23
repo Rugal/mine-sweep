@@ -8,13 +8,14 @@ import { useSnapshot } from "valtio";
 
 type Props = {
   backdropHandler: (state: boolean) => void;
+  column: number;
   isMine: boolean;
+  row: number;
 };
 
 export default function Button(p: Props) {
   const [flag, setFlag] = useState<number>(0);
   const [reveal, setReveal] = useState<boolean>(false);
-  // const [justBomb, setJustBomb] = useState<boolean>(false);
   const sp = useSnapshot(store);
 
   useEffect(() => {
@@ -24,12 +25,9 @@ export default function Button(p: Props) {
   const leftClickHandler = (e) => {
     console.log("Left click");
     setReveal(true);
-    if (!p.isMine) {
-      return;
-    }
+    if (!p.isMine) return;
 
     console.log("Game over!");
-    // setJustBomb(true);
     store.gameOver = true;
     p.backdropHandler(true);
   };
