@@ -1,4 +1,3 @@
-import { useMemo, } from "react";
 import SportsScoreIcon from "@mui/icons-material/SportsScore";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
@@ -22,17 +21,15 @@ const flagMap = [
 export default function Button(p: Props) {
   const sp = useSnapshot(store);
 
-  const cell = useMemo(() => sp.game.cell[p.row][p.column], [p.column, p.row, sp.game.cell]);
+  const cell = sp.game.cell[p.row][p.column];
 
   // find nearby mine number
-  const nearByMineNumber = useMemo(() => getNearbyCell(p, sp.board)
+  const nearByMineNumber = getNearbyCell(p, sp.board)
     .map((item) => sp.game.cell[item[0]][item[1]].isMine)
     .filter(Boolean)
-    .length,
-    [sp.game.id]);
+    .length;
 
   const revealedColor = cell.flag == -1 ? "" : "hover:bg-sky-100 bg-sky-300";
-  const nearByMineString = useMemo(() => nearByMineNumber == 0 ? "" : nearByMineNumber, [nearByMineNumber]);
 
   const leftClickHandler = (e) => {
     console.log("Left click");
@@ -62,7 +59,7 @@ export default function Button(p: Props) {
     className={`border-solid border border-sky-100 w-6 h-6 flex justify-center items-center ${revealedColor}`} >
     {
       cell.flag == -1
-        ? cell.isMine ? <LocalFireDepartmentIcon /> : nearByMineString
+        ? cell.isMine ? <LocalFireDepartmentIcon /> : (nearByMineNumber == 0 ? "" : nearByMineNumber)
         : sp.game.gameOver
           ? cell.isMine && <ErrorIcon />
           : flagMap[cell.flag]
