@@ -9,7 +9,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <GamePage row={16} column={32} mine={100} />
+        element: <GamePage />
       },
     ],
   },

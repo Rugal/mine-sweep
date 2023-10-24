@@ -1,3 +1,4 @@
+import { initializeBoard } from "../../service/game";
 import { proxy, subscribe, } from "valtio";
 import { devtools } from "valtio/utils";
 
@@ -7,11 +8,26 @@ interface Board {
   mine: number;
 }
 
+export interface Cell {
+  isMine: boolean;
+  /**
+   * -1 reveal
+   *  0 nothing
+   *  1 flag
+   *  2 unsure
+   */
+  flag: number;
+}
+
+interface Game {
+  id: number;
+  gameOver: boolean;
+  cell: Array<Array<Cell>>;
+}
+
 export interface Store {
   board: Board;
-  gameId: number;
-  gameOver: boolean;
-  mineSetup: Array<boolean>;
+  game: Game;
 }
 
 const defaultStore: Store = {
@@ -20,9 +36,11 @@ const defaultStore: Store = {
     mine: 100,
     row: 16,
   },
-  gameId: 0,
-  gameOver: false,
-  mineSetup: Array(1).fill(false),
+  game: {
+    cell: initializeBoard(16, 32, 100),
+    id: 0,
+    gameOver: false,
+  },
 };
 
 const LOCAL_STORAGE_KEY = "MineSweep";
@@ -33,6 +51,6 @@ export const store = proxy<Store>(
     : JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)!)
 );
 
-devtools(store, { name: "Mine Sweep", enabled: true })
+devtools(store, { name: LOCAL_STORAGE_KEY, enabled: true })
 
 subscribe(store, () => localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(store)));
