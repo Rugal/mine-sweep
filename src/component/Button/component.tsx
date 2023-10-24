@@ -46,16 +46,23 @@ export default function Button(p: Props) {
 
   const leftClickHandler = (e) => {
     console.log("Left click");
+    if (reveal) {
+      console.log("already revealed");
+      return;
+    }
+    if (flag > 0) {
+      console.log("already flagged");
+      return;
+    }
+
     setReveal(true);
     if (!p.isMine) return;
 
-    console.log("Game over!");
     store.gameOver = true;
     p.backdropHandler(true);
   };
   const rightClickHandler = (e) => {
     e.preventDefault();
-    console.log("Right click");
     setFlag((current) => (current + 1) % 3);
   };
 
