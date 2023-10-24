@@ -1,7 +1,9 @@
 import SportsScoreIcon from "@mui/icons-material/SportsScore";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
-import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
-import ErrorIcon from '@mui/icons-material/Error';
+import LocalFireDepartmentIcon from "@mui/icons-material/LocalFireDepartment";
+import ClearIcon from "@mui/icons-material/Clear";
+import CheckIcon from '@mui/icons-material/Check';
+import ErrorIcon from "@mui/icons-material/Error";
 import { store } from "@store";
 import { useSnapshot } from "valtio";
 import { getNearByMineNumber, getNearbyCell, Location, } from "../../service/game";
@@ -84,9 +86,11 @@ export default function Button(p: Props) {
     {
       cell.flag == -1
         ? cell.isMine ? <LocalFireDepartmentIcon /> : (nearByMineNumber == 0 ? "" : nearByMineNumber)
-        : sp.game.gameOver
-          ? cell.isMine && <ErrorIcon />
-          : flagMap[cell.flag]
+        : (sp.game.gameOver
+          ? cell.flag == 1
+            ? (cell.isMine ? <CheckIcon /> : <ClearIcon />)
+            : (cell.isMine && <ErrorIcon />)
+          : flagMap[cell.flag])
     }
   </button>;
 }
