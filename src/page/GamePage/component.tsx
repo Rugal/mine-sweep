@@ -17,7 +17,7 @@ export default function GamePage() {
   }, [sp.game.id]);
 
   const backdropClickHandler = useCallback(() => {
-    setOpen(false)
+    setOpen(false);
     // to trigger initialization
     store.game.id = getRandomInt(Number.MAX_VALUE);
   }, []);
