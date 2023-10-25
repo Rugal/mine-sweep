@@ -78,6 +78,10 @@ export default function Button(p: Props) {
       return;
     }
     store.game.cell[p.row][p.column].flag = (cell.flag + 1) % 3;
+
+    const flag = sp.game.cell.flatMap((item) => item).map((item) => item.flag == 1).filter(Boolean).length;
+    const correct = sp.game.cell.flatMap((item) => item).map((item) => item.isMine && item.flag == 1).filter(Boolean).length;
+    store.game.gameOver = flag == correct && flag == sp.board.mine
   };
 
   return <button
